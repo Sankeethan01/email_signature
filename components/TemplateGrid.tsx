@@ -30,7 +30,7 @@ export default function TemplateGrid({ templates }: TemplateGridProps) {
       {templates.map((template) => (
         <div
           key={template.id}
-          className="relative rounded-lg overflow-hidden shadow-lg bg-white transition-transform duration-300 hover:scale-105 p-5"
+          className="relative rounded-lg overflow-hidden shadow-lg bg-white transition-transform duration-300 hover:scale-105 p-4"
           onMouseEnter={() => setHoveredTemplate(template.id)}
           onMouseLeave={() => setHoveredTemplate(null)}
         >
@@ -48,14 +48,18 @@ export default function TemplateGrid({ templates }: TemplateGridProps) {
           <h3 className="mt-3 text-lg font-semibold text-center text-black">{template.name}</h3>
 
           {hoveredTemplate === template.id && (
-            <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-              <Button
-                className="hidden md:inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 py-2 px-6 rounded-lg hover:bg-white"
-                onClick={() => selectTemplate(template.id)}
-              >
-                Choose This Template
-              </Button>
-            </div>
+             <div
+             className={`absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center transition-opacity ${
+               hoveredTemplate === template.id ? "opacity-100" : "opacity-0 sm:opacity-100"
+             }`}
+           >
+             <Button
+               className="block bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 py-2 px-6 rounded-lg"
+               onClick={() => selectTemplate(template.id)}
+             >
+               Choose This Template
+             </Button>
+           </div>
           )}
         </div>
       ))}
