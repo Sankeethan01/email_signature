@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import { ChangeEvent, CSSProperties } from "react";
 
 // Define TypeScript Props for InputField
 interface InputFieldProps {
@@ -9,9 +9,14 @@ interface InputFieldProps {
   type?: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  color?: string; // New color prop
 }
 
-export const InputField = ({ label, name, type = "text", value, onChange }: InputFieldProps) => {
+export const InputField = ({ label, name, type = "text", value, onChange, color = "black" }: InputFieldProps) => {
+  const inputStyle: CSSProperties = {
+    color, // Apply the color dynamically
+  };
+
   return (
     <div className="flex flex-col">
       {label && <label className="text-gray-700 font-medium mb-1">{label}</label>}
@@ -20,6 +25,7 @@ export const InputField = ({ label, name, type = "text", value, onChange }: Inpu
         name={name}
         value={value}
         onChange={onChange}
+        style={inputStyle} // Apply the custom color style
         className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none"
         placeholder={label}
       />
