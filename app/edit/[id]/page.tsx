@@ -6,7 +6,7 @@ import { supabase } from "@/utils/supabase"
 import SignatureEditor from "@/components/SignatureEditor"
 
 export default function EditPage() {
-  const [template, setTemplate] = useState(null)
+  const [template, setTemplate] = useState<string | null>(null)
   const { id } = useParams()
 
   useEffect(() => {

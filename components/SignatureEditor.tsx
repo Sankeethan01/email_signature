@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation";
 import { InputField } from "@/components/ui/InputField";
 import { Button } from "@/components/ui/Button";
 
+interface SignatureEditorProps {
+  template: string;
+}
+
 const hardcodedTemplate = `
   <div style="font-family: Arial, sans-serif; padding: 20px; border: 3px solid #4CAF50; width: 420px; background-color: #f9f9f9;">
   <p style="color: #4CAF50; font-size: 20px; font-style: italic; font-weight: bold; margin-bottom: 16px;">Best Regards,</p>
@@ -28,7 +32,7 @@ const hardcodedTemplate = `
 
 `;
 
-export default function SignatureEditor() {
+export default function SignatureEditor({ template }: SignatureEditorProps) {
   const router = useRouter();
   const previewRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState<Record<string, string>>({
@@ -42,9 +46,11 @@ export default function SignatureEditor() {
 
   const [signatureHTML, setSignatureHTML] = useState<string>("");
 
+  const finalTemplate = template || hardcodedTemplate;
+
   useEffect(() => {
-    setSignatureHTML(generateSignatureHTML(hardcodedTemplate, formData));
-  }, [formData]);
+    setSignatureHTML(generateSignatureHTML(finalTemplate, formData));
+  }, [finalTemplate,formData]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
