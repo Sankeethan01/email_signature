@@ -69,6 +69,11 @@ export default function SignatureEditor({ template }: SignatureEditorProps) {
   };
 
   const generateSignatureHTML = (htmlTemplate: string, data: Record<string, string>): string => {
+    if (typeof htmlTemplate !== "string") {
+      console.error("generateSignatureHTML received a non-string template:", htmlTemplate);
+      return ""; // Return empty string to prevent errors
+    }
+  
     let updatedHTML = htmlTemplate;
     Object.entries(data).forEach(([key, value]) => {
       updatedHTML = updatedHTML.replace(new RegExp(`{{${key}}}`, "g"), value || "");
