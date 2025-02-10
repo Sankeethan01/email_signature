@@ -30,7 +30,7 @@ export default function EditPage() {
         setTemplate(""); // Prevent errors
       }
     }
-  } 
+  }
 
   if (!template) return <div>Loading...</div>
 

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { InputField } from "@/components/ui/InputField";
 import { Button } from "@/components/ui/Button";
 
-export default function SignatureEditor({ template }: { template: string }) {
+export default function SignatureEditor() {
   const router = useRouter();
   const previewRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +24,7 @@ export default function SignatureEditor({ template }: { template: string }) {
   const [copyStatus, setCopyStatus] = useState<string>("Copy Signature");
 
   // Ensure `signatureTemplate` is typed as a string
-  const signatureTemplate: string = template || `
+  const signatureTemplate: string = `
     <div style="font-family: Arial, sans-serif; padding: 20px; border: 3px solid #4CAF50; width: 420px; background-color: #f9f9f9;">
       <p style="color: #4CAF50; font-size: 20px; font-style: italic; font-weight: bold; margin-bottom: 16px;">Best Regards,</p>
       <table style="width: 100%;">
@@ -49,7 +49,7 @@ export default function SignatureEditor({ template }: { template: string }) {
   // Generate the signature dynamically
   useEffect(() => {
     setSignatureHTML(generateSignatureHTML(signatureTemplate, formData));
-  }, [signatureTemplate,formData]);
+  }, [formData]);
 
   // Function to handle text inputs
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
