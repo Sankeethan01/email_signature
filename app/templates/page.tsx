@@ -58,15 +58,15 @@ export default function TemplatesPage() {
       <Navbar />
 
       {/* Add Some Gap Above Navbar */}
-      <div className="mb-10 bg-gray-100"></div>
+      <div className="mb-10 bg-white h-14"></div>
 
       {/* Hero Section (Matching Landing Page Style) */}
-      <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-24 px-6 text-center">
+      <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-24 text-center -mt-1">
         <h1 className="text-5xl font-bold mb-4">Let&apos;s create your first signature!</h1>
         <p className="text-xl mb-6">Pick a design that suits you best</p>
       </section>
 
-      <div className="container mx-auto flex flex-col md:flex-row gap-10 py-12">
+      <div className="container mx-auto flex flex-col md:flex-row gap-10 py-12 px-8">
         {/* Sidebar Filter */}
         <aside className="md:w-1/4 bg-white shadow-lg rounded-lg p-6 sticky top-20 h-fit">
           <h2 className="text-xl font-semibold mb-4 flex items-center text-gray-800">

@@ -14,7 +14,7 @@ export default function Home() {
       <Navbar />
 
        {/* Add Some Gap Above Navbar */}
-       <div className="mb-10 bg-gray-100"></div>
+       <div className="mb-10 bg-gray-100 h-4"></div>
 
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center py-32 text-center">
@@ -53,13 +53,17 @@ export default function Home() {
 
       {/* Call to Action */}
       <section className="bg-blue-500 text-white py-20 text-center">
-        <h2 className="text-4xl font-bold mb-6">Start Creating Your Signature Today!</h2>
+        <h2 className="text-4xl font-bold mb-6 mt-10">Start Creating Your Signature Today!</h2>
         <Link href="/templates">
           <Button className="bg-white text-purple-700 hover:bg-gray-200 text-xl py-4 px-8 rounded-lg shadow-lg">
             Get Started for Free
           </Button>
         </Link>
       </section>
+
+      {/* Add Some Gap Above Navbar */}
+      <div className="bg-white text-gray-800 h-24">
+      </div>
 
       {/* Footer */}
       <Footer />
