@@ -5,26 +5,13 @@ import { useRouter } from "next/navigation";
 import { InputField } from "@/components/ui/InputField";
 import { Button } from "@/components/ui/Button";
 
-export default function SignatureEditor() {
-  const router = useRouter();
-  const previewRef = useRef<HTMLDivElement>(null);
+interface SignatureEditorProps {
+  template: string; // Add template as a required prop
+}
 
-  // User input state
-  const [formData, setFormData] = useState<Record<string, string>>({
-    name: "Vivien Vassalo",
-    jobTitle: "Founder & CEO of Ascentis Technologies",
-    email: "v.vassalo@ascentistechnologies.com",
-    phone: "733 663 33",
-    website: "ascentistechnologies.com",
-    profilePic:
-      "https://media.licdn.com/dms/image/v2/D4D03AQFB22WgKStmZQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1732222753849?e=1744848000&v=beta&t=5lcJqHb7lmDkbg9Rc4qRC3bAjmgdF-caKkgCyw3R_Ko",
-  });
+export default function SignatureEditor({ template }: SignatureEditorProps) {
 
-  const [signatureHTML, setSignatureHTML] = useState<string>("");
-  const [copyStatus, setCopyStatus] = useState<string>("Copy Signature");
-
-  // Ensure `signatureTemplate` is typed as a string
-  const signatureTemplate: string = `
+  template = `
     <div style="font-family: Arial, sans-serif; padding: 20px; border: 3px solid #4CAF50; width: 420px; background-color: #f9f9f9;">
       <p style="color: #4CAF50; font-size: 20px; font-style: italic; font-weight: bold; margin-bottom: 16px;">Best Regards,</p>
       <table style="width: 100%;">
@@ -46,32 +33,32 @@ export default function SignatureEditor() {
     </div>
   `;
 
-  // Generate the signature dynamically
-  useEffect(() => {
-    setSignatureHTML(generateSignatureHTML(signatureTemplate, formData));
-  }, [formData]);
+  const router = useRouter();
+  const previewRef = useRef<HTMLDivElement>(null);
 
-  // Function to handle text inputs
+  const [formData, setFormData] = useState<Record<string, string>>({
+    name: "Vivien Vassalo",
+    jobTitle: "Founder & CEO of Ascentis Technologies",
+    email: "v.vassalo@ascentistechnologies.com",
+    phone: "733 663 33",
+    website: "ascentistechnologies.com",
+    profilePic:
+      "https://media.licdn.com/dms/image/v2/D4D03AQFB22WgKStmZQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1732222753849?e=1744848000&v=beta&t=5lcJqHb7lmDkbg9Rc4qRC3bAjmgdF-caKkgCyw3R_Ko",
+  });
+
+  const [signatureHTML, setSignatureHTML] = useState<string>("");
+
+  useEffect(() => {
+    setSignatureHTML(generateSignatureHTML(template, formData));
+  }, [template, formData]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Function to handle file uploads
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setFormData((prev) => ({ ...prev, profilePic: reader.result as string }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  // Function to generate signature HTML with dynamic replacements
   const generateSignatureHTML = (htmlTemplate: string, data: Record<string, string>): string => {
-    if (!htmlTemplate) return "<p>Loading...</p>"; // Ensure content is always present
+    if (!htmlTemplate) return "<p>Loading...</p>";
 
     let updatedHTML = htmlTemplate;
     Object.entries(data).forEach(([key, value]) => {
@@ -79,23 +66,6 @@ export default function SignatureEditor() {
     });
 
     return updatedHTML;
-  };
-
-  // Function to copy the signature
-  const copySignature = async () => {
-    if (previewRef.current) {
-      const range = document.createRange();
-      range.selectNodeContents(previewRef.current);
-      const selection = window.getSelection();
-      selection?.removeAllRanges();
-      selection?.addRange(range);
-      document.execCommand("copy");
-      selection?.removeAllRanges();
-
-      // Change button text to "Signature Copied!" for 2 seconds
-      setCopyStatus("✅ Signature Copied!");
-      setTimeout(() => setCopyStatus("Copy Signature"), 2000);
-    }
   };
 
   return (
@@ -112,11 +82,6 @@ export default function SignatureEditor() {
             <InputField label="Email" name="email" value={formData.email} onChange={handleInputChange} />
             <InputField label="Phone" name="phone" value={formData.phone} onChange={handleInputChange} />
             <InputField label="Website" name="website" value={formData.website} onChange={handleInputChange} />
-
-            <div>
-              <label className="block text-gray-700 font-bold mb-2">Profile Picture</label>
-              <input type="file" accept="image/*" onChange={handleFileChange} className="block w-full text-sm" />
-            </div>
           </div>
         </div>
 
@@ -127,9 +92,6 @@ export default function SignatureEditor() {
             className="border p-4 rounded-lg bg-gray-50 shadow-md"
             dangerouslySetInnerHTML={{ __html: signatureHTML }}
           />
-          <Button onClick={copySignature} className="mt-8">
-            {copyStatus}
-          </Button>
         </div>
       </div>
     </div>
