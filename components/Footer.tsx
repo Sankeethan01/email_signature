@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import Logo from "@/public/assets/footer logo.svg";
+import company_logo from "@/public/assets/comapany logo.webp";
 
 export default function Footer() {
   return (
@@ -19,11 +20,11 @@ export default function Footer() {
             Create professional email signatures in minutes.
           </p>
           <Image
-            src="/assets/company logo.png"
+            src={company_logo}
             alt="Ascentis Signature Maker Logo"
             width={200} // Default width
             height={100} // Default height (must be >0)
-            className="mt-4 ml-12 px-3 w-full max-w-[200px] sm:max-w-[250px] object-contain"
+            className="mt-4 ml-6 px-3 w-full max-w-[200px] sm:max-w-[250px] object-contain"
           />
         </div>
 
