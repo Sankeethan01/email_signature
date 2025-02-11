@@ -6,36 +6,37 @@ import { InputField } from "@/components/ui/InputField";
 import { Button } from "@/components/ui/Button";
 
 interface SignatureEditorProps {
-  template: string; // Add template as a required prop
+  template: string;
 }
 
 export default function SignatureEditor({ template }: SignatureEditorProps) {
 
+
   template = `
-    <div style="font-family: Arial, sans-serif; padding: 20px; border: 3px solid #4CAF50; width: 420px; background-color: #f9f9f9;">
-      <p style="color: #4CAF50; font-size: 20px; font-style: italic; font-weight: bold; margin-bottom: 16px;">Best Regards,</p>
-      <table style="width: 100%;">
-        <tbody>
-          <tr>
-            <td style="vertical-align: top; padding-right: 15px;">
-              <img src="{{profilePic}}" alt="Profile Picture" width="90" height="90" style="border: 3px solid #4CAF50;" />
-            </td>
-            <td style="vertical-align: top;">
-              <p style="margin: 0; font-size: 20px; font-weight: bold; color: #333;">{{name}}</p>
-              <p style="margin: 0; font-size: 16px; color: #666;">{{jobTitle}}</p>
-              <p style="margin: 12px 0 0; font-size: 14px;"><strong style="color: #333;">Email:</strong> <a href="mailto:{{email}}" style="color: #0073b1;">{{email}}</a></p>
-              <p style="margin: 0; font-size: 14px;"><strong style="color: #333;">Phone:</strong> <span style="color: #333;">{{phone}}</span></p>
-              <p style="margin: 0; font-size: 14px;"><strong style="color: #333;">Website:</strong> <a href="{{website}}" style="color: #0073b1;">{{website}}</a></p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  `;
+  <div style="font-family: Arial, sans-serif; padding: 20px; border: 3px solid #4CAF50; width: 420px; background-color: #f9f9f9;">
+    <p style="color: #4CAF50; font-size: 20px; font-style: italic; font-weight: bold; margin-bottom: 16px;">Best Regards,</p>
+    <table style="width: 100%;">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; padding-right: 15px;">
+            <img src="{{profilePic}}" alt="Profile Picture" width="90" height="90" style="border: 3px solid #4CAF50;" />
+          </td>
+          <td style="vertical-align: top;">
+            <p style="margin: 0; font-size: 20px; font-weight: bold; color: #333;">{{name}}</p>
+            <p style="margin: 0; font-size: 16px; color: #666;">{{jobTitle}}</p>
+            <p style="margin: 12px 0 0; font-size: 14px;"><strong style="color: #333;">Email:</strong> <a href="mailto:{{email}}" style="color: #0073b1;">{{email}}</a></p>
+            <p style="margin: 0; font-size: 14px;"><strong style="color: #333;">Phone:</strong> <span style="color: #333;">{{phone}}</span></p>
+            <p style="margin: 0; font-size: 14px;"><strong style="color: #333;">Website:</strong> <a href="{{website}}" style="color: #0073b1;">{{website}}</a></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+`;
+
 
   const router = useRouter();
   const previewRef = useRef<HTMLDivElement>(null);
-
   const [formData, setFormData] = useState<Record<string, string>>({
     name: "Vivien Vassalo",
     jobTitle: "Founder & CEO of Ascentis Technologies",
@@ -47,6 +48,7 @@ export default function SignatureEditor({ template }: SignatureEditorProps) {
   });
 
   const [signatureHTML, setSignatureHTML] = useState<string>("");
+  const [copyStatus, setCopyStatus] = useState<string>("Copy Signature");
 
   useEffect(() => {
     setSignatureHTML(generateSignatureHTML(template, formData));
@@ -68,12 +70,28 @@ export default function SignatureEditor({ template }: SignatureEditorProps) {
     return updatedHTML;
   };
 
+  const copySignature = async () => {
+    if (previewRef.current) {
+      const range = document.createRange();
+      range.selectNodeContents(previewRef.current);
+      const selection = window.getSelection();
+      selection?.removeAllRanges();
+      selection?.addRange(range);
+      document.execCommand("copy");
+      selection?.removeAllRanges();
+
+      setCopyStatus("✅ Copied!");
+      setTimeout(() => setCopyStatus("Copy Signature"), 2000);
+    }
+  };
+
   return (
     <div className="container mx-auto py-12 px-4 bg-gradient-to-r from-blue-400 to-purple-500">
       <Button onClick={() => router.push("/templates")} className="mb-8">
-        ← Back to Templates
+        ⬅️ Back to Templates
       </Button>
       <div className="flex flex-col md:flex-row gap-8">
+        {/* Input Fields Section */}
         <div className="w-full md:w-1/2">
           <h2 className="text-2xl font-bold mb-4">Edit Your Signature</h2>
           <div className="space-y-4">
@@ -85,14 +103,24 @@ export default function SignatureEditor({ template }: SignatureEditorProps) {
           </div>
         </div>
 
+        {/* Preview Section */}
         <div className="w-full md:w-1/2">
           <h2 className="text-2xl font-bold mb-4">Preview</h2>
           <div
             ref={previewRef}
-            className="border p-4 rounded-lg bg-gray-50 shadow-md"
+            className="border rounded-lg bg-gray-50 shadow-md inline-block max-w-full overflow-scroll md:overflow-auto"
+            style={{
+              padding: "10px", // Padding for breathing space inside the preview
+              maxWidth: "100%", // Ensures it doesn't overflow the container
+            }}
             dangerouslySetInnerHTML={{ __html: signatureHTML }}
           />
+          
+          <Button onClick={copySignature} className="mt-4 w-full md:w-fit block">
+            {copyStatus}
+          </Button>
         </div>
+
       </div>
     </div>
   );
