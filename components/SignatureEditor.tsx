@@ -18,7 +18,8 @@ export default function SignatureEditor() {
     phone: "733 663 33",
     website: "ascentistechnologies.com",
     profilePic:
-      "https://media.licdn.com/dms/image/v2/D4D03AQFB22WgKStmZQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1732222753849?e=1744848000&v=beta&t=5lcJqHb7lmDkbg9Rc4qRC3bAjmgdF-caKkgCyw3R_Ko",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQksR3Lt2Iy2rlmUKvJmc27GcXpe297gINhTA&s",
+    // "https://media.licdn.com/dms/image/v2/D4D03AQFB22WgKStmZQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1732222753849?e=1744848000&v=beta&t=5lcJqHb7lmDkbg9Rc4qRC3bAjmgdF-caKkgCyw3R_Ko",
   });
 
   const [signatureHTML, setSignatureHTML] = useState<string>("");
@@ -26,26 +27,68 @@ export default function SignatureEditor() {
 
   // Signature Template
   const signatureTemplate = `
-    <div style="font-family: Arial, sans-serif; padding: 20px; border: 3px solid #4CAF50; width: 100%; max-width: 420px; background-color: #f9f9f9;">
+    <div style="font-family: Arial, sans-serif; padding: 20px; border: 3px solid #4CAF50; width: 600px; background-color: #f9f9f9;">
       <p style="color: #4CAF50; font-size: 20px; font-style: italic; font-weight: bold; margin-bottom: 16px;">Best Regards,</p>
-  <table style="width: 100%;">
-        <tbody>
-          <tr>
-            <td style="vertical-align: top; padding-right: 15px;">
-              <img src="{{profilePic}}" alt="Profile Picture" width="90" height="90" style="border: 3px solid #4CAF50;" />
-            </td>
-            <td style="vertical-align: top;">
-              <p style="margin: 0; font-size: 20px; font-weight: bold; color: #333;">{{name}}</p>
-              <p style="margin: 0; font-size: 16px; color: #666;">{{jobTitle}}</p>
-              <p style="margin: 12px 0 0; font-size: 14px;"><strong style="color: #333;">Email:</strong> <a href="mailto:{{email}}" style="color: #0073b1;">{{email}}</a></p>
-              <p style="margin: 0; font-size: 14px;"><strong style="color: #333;">Phone:</strong> <span style="color: #333;">{{phone}}</span></p>
-              <p style="margin: 0; font-size: 14px;"><strong style="color: #333;">Website:</strong> <a href="{{website}}" style="color: #0073b1;">{{website}}</a></p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  
+    <table style="width: 600px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #333; border-collapse: collapse;">
+    <tr>
+        <!-- Profile Image -->
+        <td style="width: 120px; vertical-align: middle; text-align: center;">
+            <img src="{{profilePic}}" alt="Profile Image" width="100" height="100" style="border-radius: 50%;">
+        </td>
+        <!-- Contact Information -->
+        <td style="vertical-align: middle; padding-left: 15px;">
+            <strong style="font-size: 18px; color: #0056b3;">{{name}}</strong><br>
+            <span style="color: #666;">{{jobTitle}}</span><br>
+            <table style="margin-top: 5px; font-size: 14px;">
+                <tr>
+                    <td style="padding-right: 8px;">
+                        <img src="https://cdn-icons-png.flaticon.com/16/732/732200.png" width="16">
+                    </td>
+                    <td>
+                        <a href="mailto:{{email}}" style="color: #333; text-decoration: none;">{{email}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 8px;">
+                        <img src="https://cdn-icons-png.flaticon.com/16/1170/1170678.png" width="16">
+                    </td>
+                    <td>
+                        <a href="{{website}}" style="color: #333; text-decoration: none;">{{website}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 8px;">
+                        <img src="https://cdn-icons-png.flaticon.com/16/724/724664.png" width="16">
+                    </td>
+                    <td>
+                        {{phone}}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
     </div>
   `;
+
+  // <table style="width: 100%;">
+  //       <tbody>
+  //         <tr>
+  //           <td style="vertical-align: top; padding-right: 15px;">
+  //             <img src="{{profilePic}}" alt="Profile Picture" width="90" height="90" style="border: 3px solid #4CAF50;" />
+  //           </td>
+  //           <td style="vertical-align: top;">
+  //             <p style="margin: 0; font-size: 20px; font-weight: bold; color: #333;">{{name}}</p>
+  //             <p style="margin: 0; font-size: 16px; color: #666;">{{jobTitle}}</p>
+  //             <p style="margin: 12px 0 0; font-size: 14px;"><strong style="color: #333;">Email:</strong> <a href="mailto:{{email}}" style="color: #0073b1;">{{email}}</a></p>
+  //             <p style="margin: 0; font-size: 14px;"><strong style="color: #333;">Phone:</strong> <span style="color: #333;">{{phone}}</span></p>
+  //             <p style="margin: 0; font-size: 14px;"><strong style="color: #333;">Website:</strong> <a href="{{website}}" style="color: #0073b1;">{{website}}</a></p>
+  //           </td>
+  //         </tr>
+  //       </tbody>
+  //     </table>
 
   useEffect(() => {
     setSignatureHTML(generateSignatureHTML(signatureTemplate, formData));
