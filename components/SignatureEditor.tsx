@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -27,7 +28,7 @@ export default function SignatureEditor() {
   const signatureTemplate = `
     <div style="font-family: Arial, sans-serif; padding: 20px; border: 3px solid #4CAF50; width: 100%; max-width: 420px; background-color: #f9f9f9;">
       <p style="color: #4CAF50; font-size: 20px; font-style: italic; font-weight: bold; margin-bottom: 16px;">Best Regards,</p>
-      <table style="width: 100%;">
+  <table style="width: 100%;">
         <tbody>
           <tr>
             <td style="vertical-align: top; padding-right: 15px;">
@@ -48,6 +49,7 @@ export default function SignatureEditor() {
 
   useEffect(() => {
     setSignatureHTML(generateSignatureHTML(signatureTemplate, formData));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,18 +63,27 @@ export default function SignatureEditor() {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setFormData((prev) => ({ ...prev, profilePic: reader.result as string }));
+        setFormData((prev) => ({
+          ...prev,
+          profilePic: reader.result as string,
+        }));
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const generateSignatureHTML = (htmlTemplate: string, data: Record<string, string>): string => {
+  const generateSignatureHTML = (
+    htmlTemplate: string,
+    data: Record<string, string>
+  ): string => {
     if (!htmlTemplate) return "<p>Loading...</p>";
 
     let updatedHTML = htmlTemplate;
     Object.entries(data).forEach(([key, value]) => {
-      updatedHTML = updatedHTML.replace(new RegExp(`{{${key}}}`, "g"), value || "");
+      updatedHTML = updatedHTML.replace(
+        new RegExp(`{{${key}}}`, "g"),
+        value || ""
+      );
     });
 
     return updatedHTML;
@@ -95,23 +106,55 @@ export default function SignatureEditor() {
 
   return (
     <div className="container mx-auto py-12 px-10 bg-gray-100 mb-10">
-      <Button onClick={() => router.push("/templates")} className="mb-8 text-xl px-5">
+      <Button
+        onClick={() => router.push("/templates")}
+        className="mb-8 text-xl px-5"
+      >
         ⬅️
       </Button>
       <div className="flex flex-col md:flex-row gap-10">
         {/* Input Fields Section */}
         <div className="w-full md:w-1/2 bg-white shadow-lg rounded-xl p-6 border">
-          <h2 className="text-2xl font-bold mb-4 text-black">Edit Your Signature</h2>
+          <h2 className="text-2xl font-bold mb-4 text-black">
+            Edit Your Signature
+          </h2>
           <div className="space-y-4">
-            <InputField label="Your Name" name="name" value={formData.name} onChange={handleInputChange} />
-            <InputField label="Job Title" name="jobTitle" value={formData.jobTitle} onChange={handleInputChange} />
-            <InputField label="Email" name="email" value={formData.email} onChange={handleInputChange} />
-            <InputField label="Phone" name="phone" value={formData.phone} onChange={handleInputChange} />
-            <InputField label="Website" name="website" value={formData.website} onChange={handleInputChange} />
+            <InputField
+              label="Your Name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+            />
+            <InputField
+              label="Job Title"
+              name="jobTitle"
+              value={formData.jobTitle}
+              onChange={handleInputChange}
+            />
+            <InputField
+              label="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+            <InputField
+              label="Phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+            />
+            <InputField
+              label="Website"
+              name="website"
+              value={formData.website}
+              onChange={handleInputChange}
+            />
 
             {/* Profile Picture Upload */}
             <div className="border p-4 rounded-lg bg-white shadow-md">
-              <label className="block text-gray-800 font-semibold mb-2">Upload Profile Picture</label>
+              <label className="block text-gray-800 font-semibold mb-2">
+                Upload Profile Picture
+              </label>
 
               {/* Profile Image Preview */}
               {formData.profilePic && (
@@ -122,7 +165,9 @@ export default function SignatureEditor() {
                     className="w-20 h-20 rounded-full border border-gray-300 shadow-sm"
                   />
                   <button
-                    onClick={() => setFormData((prev) => ({ ...prev, profilePic: "" }))}
+                    onClick={() =>
+                      setFormData((prev) => ({ ...prev, profilePic: "" }))
+                    }
                     className="mt-2 text-red-600 text-sm hover:text-red-800 transition"
                   >
                     ❌ Remove Picture
@@ -138,7 +183,9 @@ export default function SignatureEditor() {
                   onChange={handleFileChange}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
-                <span className="text-gray-700 font-semibold">📁 Choose an Image</span>
+                <span className="text-gray-700 font-semibold">
+                  📁 Choose an Image
+                </span>
               </div>
             </div>
           </div>
@@ -152,7 +199,10 @@ export default function SignatureEditor() {
             className="border rounded-lg bg-gray-50 shadow-md inline-block w-full max-w-md overflow-auto p-4"
             dangerouslySetInnerHTML={{ __html: signatureHTML }}
           />
-          <Button onClick={copySignature} className="mt-4 w-full md:w-auto block">
+          <Button
+            onClick={copySignature}
+            className="mt-4 w-full md:w-auto block"
+          >
             {copyStatus}
           </Button>
         </div>
