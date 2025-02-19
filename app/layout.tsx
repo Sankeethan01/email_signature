@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Signature Maker | Ascentis",
+  title: "Simple Email Signature: Free Signature Maker",
   description: "A signature maker tool created by Ascentis Technologies (Global)",
 };
 

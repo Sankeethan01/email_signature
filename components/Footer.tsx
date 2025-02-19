@@ -3,31 +3,33 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import Logo from "@/public/assets/footer logo.svg";
+import company_logo from "@/public/assets/comapany logo.webp";
 
 export default function Footer() {
   return (
-    <footer className="bg-white text-black py-12 px-6">
-      {/* Horizontal Line for Separation */}
-      <hr className="border-gray-300 mb-10" />
-
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+    <footer className="bg-footerDark text-white py-5 px-12">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14 items-start text-center md:text-left mt-5">
         {/* Column 1: Company Info */}
-        <div className="flex flex-col items-center text-center">
-          <h2 className="text-2xl font-bold">Ascentis Signature Maker</h2>
-          <p className="text-gray-600 mt-2">
+        <div className="flex flex-col items-start">
+          <div className="flex items-center space-x-2">
+            <Image src={Logo} width={60} height={60} alt="Logo" />
+            <h2 className="text-xl font-bold">Simple Email Signature</h2>
+          </div>
+          <p className="text-white mt-2">
             Create professional email signatures in minutes.
           </p>
           <Image
-            src="/assets/footer logo.png"
+            src={company_logo}
             alt="Ascentis Signature Maker Logo"
-            width={160}
-            height={0}
-            className="mt-4"
+            width={200} // Default width
+            height={100} // Default height (must be >0)
+            className="mt-4 ml-6 px-3 w-full max-w-[200px] sm:max-w-[250px] object-contain"
           />
         </div>
 
-        {/* Column 2: Quick Links */}
-        <div>
+        {/* Column 2: Quick Links (Centered) */}
+        <div className="flex flex-col items-center">
           <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2">
             <li>
@@ -36,7 +38,10 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/templates" className="hover:text-purple-600 transition">
+              <Link
+                href="/templates"
+                className="hover:text-purple-600 transition"
+              >
                 Templates
               </Link>
             </li>
@@ -46,7 +51,10 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-purple-600 transition">
+              <Link
+                href="/contact"
+                className="hover:text-purple-600 transition"
+              >
                 Contact
               </Link>
             </li>
@@ -54,16 +62,31 @@ export default function Footer() {
         </div>
 
         {/* Column 3: Social Media */}
-        <div>
+        <div className="flex flex-col items-end">
           <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
-          <div className="flex justify-center md:justify-start space-x-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">
+          <div className="flex space-x-4">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-500"
+            >
               <FaFacebook size={24} />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-400"
+            >
               <FaTwitter size={24} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-600"
+            >
               <FaLinkedin size={24} />
             </a>
             <a href="mailto:support@example.com" className="hover:text-red-500">
@@ -74,8 +97,9 @@ export default function Footer() {
       </div>
 
       {/* Copyright Section */}
-      <div className="text-center text-gray-500 mt-10 border-t border-gray-300 pt-4">
-        © {new Date().getFullYear()} Ascentis Signature Maker. All rights reserved.
+      <div className="text-center text-gray-500 mt-10 border-t border-gray-300 pt-2">
+        © {new Date().getFullYear()} Simple Email Signature. All rights
+        reserved.
       </div>
     </footer>
   );

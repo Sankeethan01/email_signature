@@ -94,14 +94,14 @@ export default function SignatureEditor() {
   };
 
   return (
-    <div className="container mx-auto py-12 px-4 bg-gradient-to-r from-blue-400 to-purple-500">
-      <Button onClick={() => router.push("/templates")} className="mb-8">
-        ⬅️ Back to Templates
+    <div className="container mx-auto py-12 px-10 bg-gray-100 mb-10">
+      <Button onClick={() => router.push("/templates")} className="mb-8 text-xl px-5">
+        ⬅️
       </Button>
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-10">
         {/* Input Fields Section */}
-        <div className="w-full md:w-1/2">
-          <h2 className="text-2xl font-bold mb-4">Edit Your Signature</h2>
+        <div className="w-full md:w-1/2 bg-white shadow-lg rounded-xl p-6 border">
+          <h2 className="text-2xl font-bold mb-4 text-black">Edit Your Signature</h2>
           <div className="space-y-4">
             <InputField label="Your Name" name="name" value={formData.name} onChange={handleInputChange} />
             <InputField label="Job Title" name="jobTitle" value={formData.jobTitle} onChange={handleInputChange} />
@@ -145,8 +145,8 @@ export default function SignatureEditor() {
         </div>
 
         {/* Preview Section */}
-        <div className="w-full md:w-1/2">
-          <h2 className="text-2xl font-bold mb-4">Preview</h2>
+        <div className="w-full md:w-1/2 bg-white shadow-lg rounded-xl p-6 border">
+          <h2 className="text-2xl font-bold mb-4 text-black">Preview</h2>
           <div
             ref={previewRef}
             className="border rounded-lg bg-gray-50 shadow-md inline-block w-full max-w-md overflow-auto p-4"

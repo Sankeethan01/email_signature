@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
@@ -18,7 +18,7 @@ interface TemplateGridProps {
 }
 
 export default function TemplateGrid({ templates }: TemplateGridProps) {
-  const [hoveredTemplate, setHoveredTemplate] = useState<string | null>(null);
+  // const [hoveredTemplate, setHoveredTemplate] = useState<string | null>(null);
   const router = useRouter();
 
   const selectTemplate = (templateId: string) => {
@@ -31,8 +31,8 @@ export default function TemplateGrid({ templates }: TemplateGridProps) {
         <div
           key={template.id}
           className="relative rounded-lg overflow-hidden shadow-lg bg-white transition-transform duration-300 hover:scale-105 p-4"
-          onMouseEnter={() => setHoveredTemplate(template.id)}
-          onMouseLeave={() => setHoveredTemplate(null)}
+          // onMouseEnter={() => setHoveredTemplate(template.id)}
+          // onMouseLeave={() => setHoveredTemplate(null)}
         >
           {/* Using Next.js Image with similar styles */}
           <div className="relative w-full h-auto">
@@ -45,9 +45,14 @@ export default function TemplateGrid({ templates }: TemplateGridProps) {
             />
           </div>
 
-          <h3 className="mt-3 text-lg font-semibold text-center text-black">{template.name}</h3>
+          <Button
+               className="block bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 py-2 px-4 rounded-md mt-4"
+               onClick={() => selectTemplate(template.id)}
+             >
+               Choose This Template
+             </Button>
 
-          {hoveredTemplate === template.id && (
+          {/* {hoveredTemplate === template.id && (
              <div
              className={`absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center transition-opacity ${
                hoveredTemplate === template.id ? "opacity-100" : "opacity-0 sm:opacity-100"
@@ -60,7 +65,7 @@ export default function TemplateGrid({ templates }: TemplateGridProps) {
                Choose This Template
              </Button>
            </div>
-          )}
+          )} */}
         </div>
       ))}
     </div>
