@@ -21,8 +21,12 @@ export default function TemplateGrid({ templates }: TemplateGridProps) {
   // const [hoveredTemplate, setHoveredTemplate] = useState<string | null>(null);
   const router = useRouter();
 
-  const selectTemplate = (templateId: string) => {
-    router.push(`/edit/${templateId}`);
+  const selectTemplate = (templateId: string, templateName: string) => {
+    // Store the ID in localStorage
+    localStorage.setItem("selectedTemplateId", templateId);
+
+    // Navigate with only the template name in the URL
+    router.push(`/edit/${encodeURIComponent(templateName)}`);
   };
 
   return (
@@ -47,7 +51,7 @@ export default function TemplateGrid({ templates }: TemplateGridProps) {
           <div className="w-full flex justify-center mt-4">
             <Button
               className="bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 py-2 px-4 rounded-md text-sm"
-              onClick={() => selectTemplate(template.id)}
+              onClick={() => selectTemplate(template.id, template.name)}
             >
               Choose Template
             </Button>
