@@ -16,7 +16,14 @@ type Template = {
 };
 
 // Define Type for Categories
-const categoryOptions: string[] = ["All", "Corporate", "Creative", "Minimalist", "Modern", "Business"];
+const categoryOptions: string[] = [
+  "All",
+  "Corporate",
+  "Creative",
+  "Minimalist",
+  "Modern",
+  "Business",
+];
 
 export default function TemplatesPage() {
   const [templates, setTemplates] = useState<Template[]>([]);
@@ -25,14 +32,14 @@ export default function TemplatesPage() {
 
   useEffect(() => {
     fetchTemplates();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function fetchTemplates() {
     setLoading(true);
 
     let query = supabase.from("templates").select("*").limit(50);
-    
+
     if (selectedCategory !== "All") {
       query = query.eq("category", selectedCategory);
     }
@@ -49,7 +56,7 @@ export default function TemplatesPage() {
 
   useEffect(() => {
     fetchTemplates();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
   return (
@@ -62,13 +69,15 @@ export default function TemplatesPage() {
 
       {/* Hero Section (Matching Landing Page Style) */}
       <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-24 text-center -mt-1">
-        <h1 className="text-5xl font-bold mb-4">Let&apos;s create your first signature!</h1>
+        <h1 className="text-5xl font-bold mb-4">
+          Let&apos;s create your first signature!
+        </h1>
         <p className="text-xl mb-6">Pick a design that suits you best</p>
       </section>
 
       <div className="container mx-auto flex flex-col md:flex-row gap-10 py-12 px-8">
         {/* Sidebar Filter */}
-        <aside className="md:w-1/4 bg-white shadow-lg rounded-lg p-6 sticky top-20 h-fit">
+        <aside className="hidden md:block md:w-1/4 bg-white shadow-lg rounded-lg p-6 sticky top-20 h-fit">
           <h2 className="text-xl font-semibold mb-4 flex items-center text-gray-800">
             <FaFilter className="mr-2" /> Filter by Category
           </h2>
@@ -77,7 +86,9 @@ export default function TemplatesPage() {
               <li
                 key={category}
                 className={`cursor-pointer p-2 rounded-md text-gray-700 hover:bg-gray-200 transition ${
-                  selectedCategory === category ? "bg-purple-500 text-white" : ""
+                  selectedCategory === category
+                    ? "bg-purple-500 text-white"
+                    : ""
                 }`}
                 onClick={() => setSelectedCategory(category)}
               >
@@ -90,7 +101,9 @@ export default function TemplatesPage() {
         {/* Template Grid */}
         <div className="md:w-3/4">
           {loading ? (
-            <p className="text-center text-2xl text-gray-500">Loading templates...</p>
+            <p className="text-center text-2xl text-gray-500">
+              Loading templates...
+            </p>
           ) : (
             <TemplateGrid templates={templates} />
           )}

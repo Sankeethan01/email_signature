@@ -44,12 +44,12 @@ export default function EditPage() {
 
   return (
     <>
-    {/* Navbar */}
+      {/* Navbar */}
       <Navbar />
-        {/* Add Some Gap Above Navbar */}
+      {/* Add Some Gap Above Navbar */}
       <div className="mb-10 bg-white h-14"></div>
 
-       {/* Editing Section */}
+      {/* Editing Section */}
       <SignatureEditor template={template} />
 
       {/* Footer */}

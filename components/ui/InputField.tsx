@@ -12,14 +12,23 @@ interface InputFieldProps {
   color?: string; // New color prop
 }
 
-export const InputField = ({ label, name, type = "text", value, onChange, color = "black" }: InputFieldProps) => {
+export const InputField = ({
+  label,
+  name,
+  type = "text",
+  value,
+  onChange,
+  color = "black",
+}: InputFieldProps) => {
   const inputStyle: CSSProperties = {
     color, // Apply the color dynamically
   };
 
   return (
     <div className="flex flex-col">
-      {label && <label className="text-gray-700 font-medium mb-1">{label}</label>}
+      {label && (
+        <label className="text-gray-700 font-medium mb-1">{label}</label>
+      )}
       <input
         type={type}
         name={name}

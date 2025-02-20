@@ -30,12 +30,10 @@ export default function TemplateGrid({ templates }: TemplateGridProps) {
       {templates.map((template) => (
         <div
           key={template.id}
-          className="relative rounded-lg overflow-hidden shadow-lg bg-white transition-transform duration-300 hover:scale-105 p-4"
-          // onMouseEnter={() => setHoveredTemplate(template.id)}
-          // onMouseLeave={() => setHoveredTemplate(null)}
+          className="relative rounded-lg overflow-hidden shadow-lg bg-white transition-transform duration-300 hover:scale-105 p-4 flex flex-col items-center"
         >
-          {/* Using Next.js Image with similar styles */}
-          <div className="relative w-full h-auto">
+          {/* Template Image */}
+          <div className="relative w-full">
             <Image
               src={template.thumbnail || "/placeholder.svg"}
               alt={template.name}
@@ -45,27 +43,15 @@ export default function TemplateGrid({ templates }: TemplateGridProps) {
             />
           </div>
 
-          <Button
-               className="block bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 py-2 px-4 rounded-md mt-4"
-               onClick={() => selectTemplate(template.id)}
-             >
-               Choose This Template
-             </Button>
-
-          {/* {hoveredTemplate === template.id && (
-             <div
-             className={`absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center transition-opacity ${
-               hoveredTemplate === template.id ? "opacity-100" : "opacity-0 sm:opacity-100"
-             }`}
-           >
-             <Button
-               className="block bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 py-2 px-6 rounded-lg"
-               onClick={() => selectTemplate(template.id)}
-             >
-               Choose This Template
-             </Button>
-           </div>
-          )} */}
+          {/* Button - Always centered under the template */}
+          <div className="w-full flex justify-center mt-4">
+            <Button
+              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 py-2 px-4 rounded-md text-sm"
+              onClick={() => selectTemplate(template.id)}
+            >
+              Choose Template
+            </Button>
+          </div>
         </div>
       ))}
     </div>
