@@ -18,7 +18,7 @@ export default function SignatureEditor({ template }: { template: string }) {
     email: "v.vassalo@ascentistechnologies.com",
     phone: "733 663 33",
     website: "ascentistechnologies.com",
-    profilePic: "",
+    profilePic: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
   });
 
   const [signatureHTML, setSignatureHTML] = useState<string>("");
