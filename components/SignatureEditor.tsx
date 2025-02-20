@@ -49,7 +49,7 @@ export default function SignatureEditor({ template }: { template: string }) {
     const fileName = `${Date.now()}_${file.name}`;
 
     // Upload file to Supabase Storage
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from(STORAGE_BUCKET)
       .upload(`${STORAGE_FOLDER}/${fileName}`, file);
 
